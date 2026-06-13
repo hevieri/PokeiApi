@@ -1,6 +1,23 @@
 import styles from './DisplayFrame.module.css'
 
 export default function DisplayFrame({ pokemon, status }) {
+  if (!pokemon) {
+    return (
+      <section className={styles.displayFrame}>
+        <div className={styles.header}>
+          <div className={styles.titleGroup}>
+            <p className={styles.subtitle}>Pokédex</p>
+            <h2 className={styles.title}>Cargando Pokémon...</h2>
+          </div>
+          <span className={styles.status}>{status}</span>
+        </div>
+        <div className={styles.body}>
+          <div className={styles.spriteBox}>Cargando...</div>
+        </div>
+      </section>
+    )
+  }
+
   return (
     <section className={styles.displayFrame}>
       <div className={styles.header}>

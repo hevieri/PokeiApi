@@ -6,6 +6,13 @@ import styles from './DataFrame.module.css'
 const visibleStats = ['HP', 'ATK', 'DEF']
 
 export default function DataFrame({ pokemon, query, onQueryChange, onPrev, onNext, onScan, isLoading, error }) {
+  const statValues = {
+    HP: pokemon?.stats?.HP ?? 0,
+    ATK: pokemon?.stats?.ATK ?? 0,
+    DEF: pokemon?.stats?.DEF ?? 0,
+  }
+  const primaryType = pokemon?.types?.[0] ?? 'Normal'
+
   return (
     <section className={styles.dataFrame}>
       <div className={styles.header}>
@@ -25,11 +32,11 @@ export default function DataFrame({ pokemon, query, onQueryChange, onPrev, onNex
 
       <div className={styles.statList}>
         {visibleStats.map((name) => (
-          <StatRow key={name} label={name} value={pokemon.stats?.[name] ?? 0} />
+          <StatRow key={name} label={name} value={statValues[name]} />
         ))}
       </div>
 
-      <MovesPanel moves={pokemon.moves ?? []} type={pokemon.types?.[0] ?? 'Normal'} />
+      <MovesPanel moves={pokemon?.moves ?? []} type={primaryType} />
 
       <SearchBar query={query} onQueryChange={onQueryChange} onScan={onScan} isLoading={isLoading} />
 
