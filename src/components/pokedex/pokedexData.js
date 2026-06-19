@@ -1,3 +1,19 @@
+/**
+ * pokedexData
+ *
+ * Módulo de utilidades para la comunicación con la PokéAPI y la
+ * normalización de datos. Contiene:
+ *   - maxStat: valor máximo de estadística base usado para las barras
+ *   - clampPokemonId: ajusta un ID al rango 1..maxPokemonId (wrap)
+ *   - loadFromPokeApi: fetch + validación + normalización de la respuesta
+ *   - normalizeApiPokemon: transforma la respuesta cruda de la API al
+ *     formato interno que usan los componentes (name, types, stats, etc.)
+ *   - getGen1MovesForTypes: asigna 3 movimientos clásicos según el tipo
+ *
+ * La normalización convierte alturas (dm → m), pesos (hg → kg) y
+ * aplica title case a nombres y tipos.
+ */
+
 export const maxStat = 120
 const maxPokemonId = 1010
 

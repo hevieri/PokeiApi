@@ -1,3 +1,12 @@
+/**
+ * App
+ *
+ * Componente raíz de la aplicación. Maneja la navegación entre la
+ * página de inicio (Home) y la página de estadísticas (Stats) usando
+ * un estado local simple (page). Renderiza un encabezado global común
+ * con el título "Pokeappi" y una breve descripción.
+ */
+
 import { useState } from 'react'
 import Home from './pages/Home.jsx'
 import Stats from './pages/Stats.jsx'

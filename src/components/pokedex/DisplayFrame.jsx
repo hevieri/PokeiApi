@@ -1,27 +1,46 @@
+/**
+ * DisplayFrame
+ *
+ * Componente principal que representa la tarjeta izquierda del Pokedex.
+ * Muestra la información visual del Pokémon: nombre, sprite oficial,
+ * datos básicos (ID, tipo, altura, peso, habilidad) y un pie con los
+ * nombres de los tipos coloreados. Delega el sprite y los detalles
+ * a los sub-componentes SpriteSection y PokemonInfo respectivamente.
+ *
+ * Props:
+ *   - pokemon {object|null}: Datos del Pokémon activo, o null mientras
+ *       carga o si no se encontró.
+ *   - status {string}: Texto corto ("Cargando" | "Listo") que aparece
+ *       como indicador al lado del título.
+ */
+
 import styles from './DisplayFrame.module.css'
+import SpriteSection from './SpriteSection'
+import PokemonInfo from './PokemonInfo'
+import { getTypeConfig } from './typeConfig'
 
 export default function DisplayFrame({ pokemon, status }) {
   if (!pokemon) {
     return (
       <section className={styles.displayFrame}>
-        <div className={styles.header}>
-          <div className={styles.titleGroup}>
+        <div className="flex items-center justify-between gap-4 mb-6">
+          <div className="grid gap-1">
             <p className={styles.subtitle}>Pokédex</p>
             <h2 className={styles.title}>Cargando Pokémon...</h2>
           </div>
           <span className={styles.status}>{status}</span>
         </div>
         <div className={styles.body}>
-          <div className={styles.spriteBox}>Cargando...</div>
+          <SpriteSection pokemon={null} isLoading={true} />
         </div>
       </section>
     )
   }
 
   return (
-    <section className={styles.displayFrame}>
-      <div className={styles.header}>
-        <div className={styles.titleGroup}>
+      <section className={styles.displayFrame}>
+      <div className="flex items-center justify-between gap-4 mb-6">
+        <div className="grid gap-1">
           <p className={styles.subtitle}>Pokédex</p>
           <h2 className={styles.title}>{pokemon.name}</h2>
         </div>
@@ -29,48 +48,20 @@ export default function DisplayFrame({ pokemon, status }) {
       </div>
 
       <div className={styles.body}>
-        <div className={styles.spriteBox}>
-          {pokemon.sprite ? (
-            <img src={pokemon.sprite} alt={pokemon.name} className={styles.sprite} />
-          ) : (
-            <span>Sin imagen</span>
-          )}
-        </div>
+        <SpriteSection pokemon={pokemon} isLoading={false} />
+        <PokemonInfo pokemon={pokemon} />
+      </div>
 
-        <div className={styles.details}>
-          <div className={styles.gridTwo}>
-            <div className={styles.detailCard}>
-              <p className={styles.detailTitle}>ID</p>
-              <p className={styles.detailValue}>#{String(pokemon.id).padStart(3, '0')}</p>
-            </div>
-            <div className={styles.detailCard}>
-              <p className={styles.detailTitle}>Tipo</p>
-              <div className={styles.chipList}>
-                {pokemon.types.map((type) => (
-                  <span key={type} className={styles.chip}>
-                    {type}
-                  </span>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          <div className={styles.gridTwo}>
-            <div className={styles.detailCard}>
-              <p className={styles.detailTitle}>Altura</p>
-              <p className={styles.detailValue}>{pokemon.height}</p>
-            </div>
-            <div className={styles.detailCard}>
-              <p className={styles.detailTitle}>Peso</p>
-              <p className={styles.detailValue}>{pokemon.weight}</p>
-            </div>
-          </div>
-
-          <div className={styles.abilityCard}>
-            <p className={styles.detailTitle}>Habilidad</p>
-            <p className={styles.detailValue}>{pokemon.ability}</p>
-          </div>
-        </div>
+      <div className={styles.footer}>
+        {pokemon.types.map((type, i) => {
+          const config = getTypeConfig(type)
+          return (
+            <span key={type} className={styles.typeWord} style={{ '--type-glow': config.color }}>
+              {i > 0 && <span className={styles.typeSep}> / </span>}
+              {type}
+            </span>
+          )
+        })}
       </div>
     </section>
   )

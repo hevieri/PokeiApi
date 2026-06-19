@@ -1,3 +1,20 @@
+/**
+ * usePokemon
+ *
+ * Hook personalizado que gestiona todo el estado relacionado con la
+ * carga de datos de Pokémon desde la PokéAPI. Se encarga de:
+ *   - Mantener el ID del Pokémon activo y permitir navegación (prev/next)
+ *   - Ejecutar la búsqueda por nombre o ID mediante el formulario
+ *   - Gestionar estados de carga (isLoading) y error
+ *   - Actualizar el Pokémon activo cada vez que cambia activeId vía useEffect
+ *
+ * La función clampPokemonId asegura que el ID nunca salga del rango
+ * 1..maxPokemonId (1010), con comportamiento wrap-around.
+ *
+ * Returns:
+ *   { pokemon, query, setQuery, isLoading, error, handlePrev, handleNext, handleScan }
+ */
+
 import { useEffect, useState } from 'react'
 import { clampPokemonId, loadFromPokeApi } from '../components/pokedex/pokedexData.js'
 

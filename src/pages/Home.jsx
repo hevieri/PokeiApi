@@ -1,3 +1,15 @@
+/**
+ * Home
+ *
+ * Página de bienvenida de la aplicación. Muestra un mensaje de
+ * introducción y un botón llamativo que lleva a la sección de
+ * estadísticas (Pokedex). La navegación se maneja mediante la
+ * prop onGoStats que cambia el estado en App.
+ *
+ * Props:
+ *   - onGoStats {function}: Callback para cambiar a la página Stats.
+ */
+
 export default function Home({ onGoStats }) {
   return (
     <section className="flex flex-col items-center gap-10 pt-6 sm:pt-10">

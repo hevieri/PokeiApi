@@ -1,3 +1,17 @@
+/**
+ * Pokedex
+ *
+ * Componente raíz de la sección Pokedex. Orquesta la comunicación entre
+ * el hook usePokemon (gestión de estado y llamadas a la API) y los dos
+ * paneles principales: DisplayFrame (tarjeta visual del Pokémon) y
+ * DataFrame (tarjeta de datos y controles). Se encarga de pasar todas
+ * las props necesarias a sus hijos y renderiza el layout responsive
+ * de dos columnas.
+ *
+ * No recibe props externas: usa usePokemon para manejar todo el estado
+ * interno (Pokémon activo, búsqueda, carga, errores).
+ */
+
 import DisplayFrame from './DisplayFrame'
 import DataFrame from './DataFrame'
 import usePokemon from '../../hooks/usePokemon.js'
@@ -17,7 +31,6 @@ export default function Pokedex() {
           onPrev={handlePrev}
           onNext={handleNext}
           onScan={handleScan}
-          isLoading={isLoading}
           error={error}
         />
       </div>
